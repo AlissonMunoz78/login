@@ -4,53 +4,54 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class hobbies {
-    private JButton biografiaButton;
+    private JPanel hobbyPanel;
+    private JButton backButton;
+    private JLabel hobbyImageLabel;
     private JPanel hobbies;
     private JLabel img1;
     private JLabel img2;
     private JLabel img3;
     private JLabel img4;
+    private JButton biografiaButton;
 
     public hobbies() {
-        JFrame hobbiesFrame = new JFrame("Hobbies");
-        hobbiesFrame.setContentPane(hobbies);
-        hobbiesFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        hobbiesFrame.pack();
-        hobbiesFrame.setSize(1000, 1000);
-        hobbiesFrame.setLocationRelativeTo(null);
-        hobbiesFrame.setVisible(true);
+        initializeComponents();
 
-        try{
-            URL urlimg1 = new URL("https://www.movilzona.es/app/uploads-movilzona.es/2023/09/mejores-apps-para-escuchar-musica-en-el-movil.jpg?x=480&y=375&quality=40");
-            ImageIcon icon1 = new ImageIcon(urlimg1);
-            img1.setIcon(icon1);
-
-            URL urlimg2 = new URL("https://i.blogs.es/c66e83/python3/450_1000.jpeg");
-            ImageIcon icon2 = new ImageIcon(urlimg2);
-            img2.setIcon(icon2);
-
-            URL urlimg3 = new URL("https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_noticia__small/public/media/2022/07/14/videojuegos_decisiones.jpg");
-            ImageIcon icon3 = new ImageIcon(urlimg3);
-            img3.setIcon(icon3);
-
-            URL urlimg4 = new URL("https://img.freepik.com/fotos-premium/hombre-descansa-gimnasio-despues-hacer-ejercicio_600776-30728.jpg");
-            ImageIcon icon4 = new ImageIcon(urlimg4);
-            img4.setIcon(icon4);
-
-        } catch (Exception e){
+        try {
+            URL url = new URL("https://images.unsplash.com/photo-1593642532400-2682810df593?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBob3RvfGVufDB8fHx8MTY4MjcyNTM2MA&ixlib=rb-1.2.1&q=80&w=400");
+            ImageIcon icon = new ImageIcon(url);
+            hobbyImageLabel.setIcon(icon);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        biografiaButton.addActionListener(new ActionListener() {
+        backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hobbiesFrame.setVisible(false);
-                new biografia();
+                JFrame bioFrame = new JFrame("Biografía");
+                bioFrame.setContentPane(new biografia().getBioPanel());
+                bioFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                bioFrame.pack();
+                bioFrame.setSize(600, 400);
+                bioFrame.setLocationRelativeTo(null);
+                bioFrame.setVisible(true);
+                SwingUtilities.getWindowAncestor(hobbyPanel).dispose();
             }
         });
     }
 
-    public JPanel getHobbiesPanel() {
-        return hobbies;
+    private void initializeComponents() {
+        hobbyPanel = new JPanel();
+        backButton = new JButton("Back to Biografía");
+        hobbyImageLabel = new JLabel();
+
+        // Layout setup
+        hobbyPanel.setLayout(new BoxLayout(hobbyPanel, BoxLayout.Y_AXIS));
+        hobbyPanel.add(hobbyImageLabel);
+        hobbyPanel.add(backButton);
+    }
+
+    public JPanel getHobbyPanel() {
+        return hobbyPanel;
     }
 }

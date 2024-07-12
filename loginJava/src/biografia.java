@@ -1,56 +1,69 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class biografia {
+    private JPanel bioPanel;
+    private JTextArea bioTextArea;
+    private JButton hobbyButton;
+    private JButton logoutButton;
+    private JLabel userLabel;
     private JPanel biografia;
-    private JTextArea textArea1;
-    private JButton hobbiesButton;
-    private JButton cerrarSesiónButton;
+    private JTextArea llenaTuBiografiaTextArea;
     private JLabel user2;
+    private JButton cerrarSesiónButton;
+    private JButton hobbiesButton;
 
     public biografia() {
+        initializeComponents();
+        userLabel.setText("Ali");
+        bioTextArea.setText("Tu biografía aquí...");
 
-        JFrame frame = new JFrame("Biografia");
-        frame.setContentPane(biografia);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(600, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        user2.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                user2.setText("Adrian");
-            }
-        });
-        textArea1.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-            }
-        });
-        cerrarSesiónButton.addActionListener(new ActionListener() {
+        hobbyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                new login();
+                JFrame hobbyFrame = new JFrame("Hobbies");
+                hobbyFrame.setContentPane(new hobbies().getHobbyPanel());
+                hobbyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                hobbyFrame.pack();
+                hobbyFrame.setSize(600, 400);
+                hobbyFrame.setLocationRelativeTo(null);
+                hobbyFrame.setVisible(true);
+                SwingUtilities.getWindowAncestor(bioPanel).dispose();
             }
         });
-        hobbiesButton.addActionListener(new ActionListener() {
+
+        logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                new hobbies();
+                JFrame loginFrame = new JFrame("Login");
+                loginFrame.setContentPane(new login().getLoginPanel());
+                loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                loginFrame.pack();
+                loginFrame.setSize(400, 300);
+                loginFrame.setLocationRelativeTo(null);
+                loginFrame.setVisible(true);
+                SwingUtilities.getWindowAncestor(bioPanel).dispose();
             }
         });
     }
 
-    public JPanel BIOGRAFIA() {
-        return biografia;
+    private void initializeComponents() {
+        bioPanel = new JPanel();
+        bioTextArea = new JTextArea();
+        hobbyButton = new JButton("Hobbies");
+        logoutButton = new JButton("Logout");
+        userLabel = new JLabel("User");
+
+        // Layout setup
+        bioPanel.setLayout(new BoxLayout(bioPanel, BoxLayout.Y_AXIS));
+        bioPanel.add(userLabel);
+        bioPanel.add(new JScrollPane(bioTextArea));
+        bioPanel.add(hobbyButton);
+        bioPanel.add(logoutButton);
+    }
+
+    public JPanel getBioPanel() {
+        return bioPanel;
     }
 }
