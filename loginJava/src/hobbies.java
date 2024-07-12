@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -18,9 +19,10 @@ public class hobbies {
         initializeComponents();
 
         try {
-            URL url = new URL("https://images.unsplash.com/photo-1593642532400-2682810df593?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHBob3RvfGVufDB8fHx8MTY4MjcyNTM2MA&ixlib=rb-1.2.1&q=80&w=400");
-            ImageIcon icon = new ImageIcon(url);
-            hobbyImageLabel.setIcon(icon);
+            URL url = new URL("https://i.pinimg.com/564x/2c/08/24/2c0824495213775ca5fb69b21d7bcaa9.jpg");
+            ImageIcon originalIcon = new ImageIcon(url);
+            ImageIcon scaledIcon = new ImageIcon(originalIcon.getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT)); // Adjust size here
+            hobbyImageLabel.setIcon(scaledIcon);
         } catch (Exception e) {
             e.printStackTrace();
         }
